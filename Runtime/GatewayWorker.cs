@@ -11,13 +11,20 @@ public sealed class GatewayWorker(
 {
     public async Task RunAsync(CancellationToken cancellationToken)
     {
-        await foreach (var frame in packetSource.CaptureAsync(cancellationToken))
+        try
         {
-            if (!packetParser.TryParse(frame, out var packet) || packet is null)
-                continue;
+            await foreach (var frame in packetSource.CaptureAsync(cancellationToken))
+            {
+                if (!packetParser.TryParse(frame, out var packet) || packet is null)
+                    continue;
 
-            if (decoder.TryDecode(packet, out var snapshot))
-                telemetryStore.Update(snapshot);
+                if (decoder.TryDecode(packet, out var snapshot))
+                    telemetryStore.Update(snapshot);
+            }
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            // Normal application shutdown. Do not report cancellation as a failure.
         }
     }
 }
