@@ -15,8 +15,14 @@ public sealed class NullPacketSource : IPacketSource
 
         // Keep the source alive until the application requests shutdown.
         // Cancellation is expected control flow and is handled by GatewayWorker.
-        await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
-
-        yield break;
+        try
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, cancellationToken);
+        }
+        catch (OperationCanceledException)
+        {
+            //NOTE Тихо выходим, когда просят свалить
+            yield break;
+        }
     }
 }
