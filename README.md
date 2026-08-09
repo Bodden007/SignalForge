@@ -1,5 +1,7 @@
 # SignalForge
 
+[![Build](https://github.com/Bodden007/SignalForge/actions/workflows/build.yml/badge.svg)](https://github.com/Bodden007/SignalForge/actions/workflows/build.yml)
+
 **Industrial Protocol Gateway**
 
 SignalForge is a .NET 10 / C# gateway for capturing, decoding, normalizing and publishing industrial protocol data.
