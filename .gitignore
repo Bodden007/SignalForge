@@ -1,0 +1,25 @@
+## .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider
+.idea/
+*.sln.iml
+
+## Build / publish
+artifacts/
+publish/
+
+## Logs / captures
+*.log
+*.pcap
+*.pcapng
+
+## OS
+.DS_Store
+Thumbs.db
